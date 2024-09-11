@@ -1,1 +1,4 @@
-flask
+flask~=3.0.3
+Flask-SQLAlchemy
+SQLAlchemy~=2.0.34
+Pymysql

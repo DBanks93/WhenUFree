@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Selecting Choices for {{ session['name'] }}</h2>
+        <form id="schedule-form">
+            {% for day in days %}
+                <h3>{{ day }}</h3>
+                <div class="times">
+                    {% for time in times %}
+                        <div class="time-slot {% if day in schedule and time in schedule[day] %}selected{% endif %}"
+                             data-day="{{ day }}"
+                             data-time="{{ time }}">
+                            {{ time }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit">Save Choices</button>
+        </form>
+        <br>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.time-slot').on('click', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#schedule-form').on('submit', function (e) {
+                e.preventDefault();
+
+                let schedule = {};
+
+                $('.selected').each(function () {
+                    let day = $(this).data('day');
+                    let time = $(this).data('time');
+
+                    if (!schedule[day]) {
+                        schedule[day] = [];
+                    }
+
+                    schedule[day].push(time);
+                });
+
+
+                $.ajax({
+                    url: '/timetable/schedule',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(schedule),
+                    success: function (response) {
+                        alert('Schedule saved!');
+                    },
+                    error: function () {
+                        alert('Error saving schedule');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

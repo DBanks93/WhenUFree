@@ -1,0 +1,66 @@
+/* Base styles for the schedule page */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+.times {
+    margin: 20px 0;
+}
+
+.time-slot {
+    display: inline-block;
+    width: 100px;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+.time-slot.selected {
+    background-color: #005ea5;
+    color: #ffffff;
+    border-color: #005ea5;
+}
+
+.time-slot:hover {
+    background-color: #e0e0e0;
+}
+
+button {
+    background-color: #005ea5;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #003678;
+}
