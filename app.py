@@ -10,6 +10,10 @@ app.permanent_session_lifetime = timedelta(days=30)
 
 init_db()
 
+@app.route("/timetable")
+def timetable():
+    return redirect(url_for("login"))
+
 @app.route("/timetable/login", methods=['GET'])
 def login():
     if 'name' in session:
