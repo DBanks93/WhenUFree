@@ -6,7 +6,7 @@ load_dotenv()
 class Config:
     DB_USERNAME = os.getenv('DB_USERNAME')
     DB_PASSWORD = os.getenv('DB_PASSWORD')
-    DB_HOST = os.getenv('DB_HOST', 'localhost')
+    DB_HOST = os.getenv('DB_HOST')
 
 class Timetable:
     DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
