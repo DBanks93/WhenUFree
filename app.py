@@ -1,12 +1,55 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response
 from datetime import timedelta
 
-from config import Timetable
-from db import app, db, User, init_db
+from flask_sqlalchemy import SQLAlchemy
+
+from config import Timetable, Config
+
+# from db import app, db, User, init_db
 
 # app = Flask(__name__)
+
+
+app = Flask(__name__)
+
 app.secret_key = 'supersecretkey'
 app.permanent_session_lifetime = timedelta(days=30)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    f'mysql+pymysql://{Config.DB_USERNAME}:{Config.DB_PASSWORD}@{Config.DB_HOST}/timetable'
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    schedule = db.Column(db.JSON)
+
+    def __init__(self, name, schedule=None):
+        self.name = name
+        self.schedule = schedule or {}
+
+    @staticmethod
+    def find_by_name(name) -> 'User':
+        return User.query.filter_by(name=name).first()
+
+    @staticmethod
+    def create_user(name):
+        user = User(name)
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    def update_schedule(self, schedule):
+        self.schedule = schedule
+        db.session.commit()
+
+
+def init_db():
+    with app.app_context():
+        db.create_all()
 
 init_db()
 
