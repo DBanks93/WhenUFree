@@ -25,6 +25,10 @@ class User(db.Model):
         self.schedule = schedule or {}
 
     @staticmethod
+    def get_all_users():
+        return User.query.all()
+
+    @staticmethod
     def find_by_name(name) -> 'User':
         return User.query.filter_by(name=name).first()
 

@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    DB_USERNAME = os.getenv('DB_USERNAME')
-    DB_PASSWORD = os.getenv('DB_PASSWORD')
+    DB_USERNAME = 'root' #os.getenv('DB_USERNAME')
+    DB_PASSWORD = 'kyzgax-wobgok' #os.getenv('DB_PASSWORD')
     DB_HOST = os.getenv('DB_HOST', 'localhost')
 
 class Timetable:

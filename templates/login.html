@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login-style.css') }}">
+    <style>
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+
+        .cookie-banner button {
+            background-color: #005ea5;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 20px;
+        }
+
+        .cookie-banner button:hover {
+            background-color: #003678;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -25,5 +54,40 @@
             </div>
         {% endif %}
     </div>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        This website stores cookies to keep you logged in for 30 days. By continuing to use this site, you agree to the use of cookies.
+        <button onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            // Create a cookie that expires in 30 days
+            // const d = new Date();
+            // d.setTime(d.getTime() + (30*24*60*60*1000)); // 30 days in milliseconds
+            // const expires = "expires=" + d.toUTCString();
+            // document.cookie = "sessionCookie=true;" + expires + ";path=/";
+            //
+            // // Hide the cookie banner after acceptance
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        // Check if the cookie has already been set
+        function checkCookie() {
+            const cookies = document.cookie.split(';');
+            for(let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.indexOf("sessionCookie=") === 0) {
+                    document.getElementById('cookieBanner').style.display = 'none';
+                    break;
+                }
+            }
+        }
+
+        // Call checkCookie when the page loads
+        window.onload = checkCookie;
+    </script>
+
 </body>
 </html>

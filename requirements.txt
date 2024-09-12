@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 SQLAlchemy~=2.0.34
 Pymysql
 python-dotenv
+cryptography
